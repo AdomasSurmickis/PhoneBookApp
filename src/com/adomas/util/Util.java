@@ -1,4 +1,4 @@
-package com.adomas;
+package com.adomas.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

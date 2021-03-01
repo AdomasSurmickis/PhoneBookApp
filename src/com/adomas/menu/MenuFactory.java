@@ -1,6 +1,9 @@
-package com.adomas.menu.sub;
+package com.adomas.menu;
 
-import contacts.menu.*;
+import com.adomas.menu.sub.ListMenu;
+import com.adomas.menu.sub.Menu;
+import com.adomas.menu.sub.RecordMenu;
+import com.adomas.menu.sub.SearchMenu;
 
 import java.util.ArrayList;
 import java.util.List;

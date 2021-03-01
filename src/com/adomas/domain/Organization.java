@@ -1,12 +1,13 @@
-package com.adomas;
+package com.adomas.domain;
+
+import lombok.Data;
 
 import java.time.temporal.ChronoUnit;
 
+@Data
 public class Organization extends Contact {
     private String name;
     private String address;
-
-
 
     public Organization(int id) {
         super(id);
@@ -20,25 +21,6 @@ public class Organization extends Contact {
     @Override
     public String getAllFieldsAsString() {
         return this.name + " " + this.number + " " + this.address;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-
-
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String organizationName) {
-        this.name = organizationName;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.adomas.menu.sub;
 
-import contacts.menu.MenuType;
+import com.adomas.menu.MenuType;
 
 public abstract class Menu {
 

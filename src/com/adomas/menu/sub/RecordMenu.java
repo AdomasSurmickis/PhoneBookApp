@@ -1,9 +1,8 @@
 package com.adomas.menu.sub;
 
-import contacts.Contact;
-import contacts.menu.MenuType;
-
-import static contacts.menu.MenuController.*;
+import com.adomas.domain.Contact;
+import com.adomas.menu.MenuController;
+import com.adomas.menu.MenuType;
 
 public class RecordMenu extends Menu {
     Contact currentRecord;
@@ -17,12 +16,12 @@ public class RecordMenu extends Menu {
         toExit = false;
         while (!toExit) {
             printMenu();
-            switch (sc.nextLine()) {
+            switch (MenuController.sc.nextLine()) {
                 case "edit":
-                    phoneBook.editContact(currentRecord);
+                    MenuController.phoneBook.editContact(currentRecord);
                     break;
                 case "delete":
-                    phoneBook.removeContact(currentRecord);
+                    MenuController.phoneBook.removeContact(currentRecord);
                     exit();
                     break;
                 case "menu":

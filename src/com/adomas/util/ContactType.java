@@ -1,4 +1,4 @@
-package com.adomas;
+package com.adomas.util;
 
 public enum ContactType {
     PERSON("person"), ORGANIZATION("organization");

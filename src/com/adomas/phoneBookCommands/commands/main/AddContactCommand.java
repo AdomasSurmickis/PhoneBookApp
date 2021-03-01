@@ -1,6 +1,6 @@
 package com.adomas.phoneBookCommands.commands.main;
 
-import contacts.phoneBookCommands.Command;
+import com.adomas.phoneBookCommands.Command;
 
 public class AddContactCommand implements Command {
 

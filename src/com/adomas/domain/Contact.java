@@ -1,4 +1,7 @@
-package com.adomas;
+package com.adomas.domain;
+
+import com.adomas.util.Util;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -10,6 +13,7 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.stream.Stream;
 
+@Data
 public abstract class Contact implements Serializable {
     private int id;
     protected String number;
@@ -26,19 +30,9 @@ public abstract class Contact implements Serializable {
         this.id = id;
     }
 
-
-    public boolean hasNumber() {
-        return (number != null && !number.equals(""));
-    }
-
     public abstract String getFullName();
 
     public abstract String getAllFieldsAsString();
-
-
-    public String getNumber() {
-        return number;
-    }
 
 
     public void setNumber(String number) {
@@ -47,10 +41,6 @@ public abstract class Contact implements Serializable {
         } else {
             this.number = null;
         }
-    }
-
-    public boolean isPerson() {
-        return this instanceof contacts.Person;
     }
 
     public List<Field> getEditableFields() {
@@ -156,10 +146,5 @@ public abstract class Contact implements Serializable {
         }
         return false;
     }
-
-
-    //    A method that returns all of the possible fields this class is able to change.
-//    A method that takes a string that represents a field that the class is able to change and its new value.
-//    A method that takes a string representation of the field and returns the value of this field.
 
 }

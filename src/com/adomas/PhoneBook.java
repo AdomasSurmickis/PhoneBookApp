@@ -1,8 +1,11 @@
 package com.adomas;
 
-import contacts.repository.ContactRepoFileImpl;
-import contacts.repository.ContactRepoListImpl;
-import contacts.repository.ContactRepository;
+import com.adomas.domain.Contact;
+import com.adomas.domain.Organization;
+import com.adomas.domain.Person;
+import com.adomas.repository.ContactRepoFileImpl;
+import com.adomas.repository.ContactRepoListImpl;
+import com.adomas.repository.ContactRepository;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -10,7 +13,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static contacts.menu.MenuController.sc;
+import static com.adomas.menu.MenuController.sc;
 
 public class PhoneBook {
     public static List<Contact> contacts;

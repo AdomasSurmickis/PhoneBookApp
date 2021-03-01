@@ -1,11 +1,9 @@
 package com.adomas.menu.sub;
 
-import contacts.Contact;
-import contacts.PhoneBook;
-import contacts.menu.MenuType;
-
-import static contacts.menu.MenuController.runRecordMenu;
-import static contacts.menu.MenuController.sc;
+import com.adomas.domain.Contact;
+import com.adomas.PhoneBook;
+import com.adomas.menu.MenuController;
+import com.adomas.menu.MenuType;
 
 public class ListMenu extends Menu {
 
@@ -24,7 +22,7 @@ public class ListMenu extends Menu {
 
             while (!toExit) {
                 printMenu();
-                String input = sc.nextLine();
+                String input = MenuController.sc.nextLine();
 
                 Contact record = PhoneBook.getContactByInputIndex(input);
                 if (record != null) {
@@ -32,7 +30,7 @@ public class ListMenu extends Menu {
                 }
                 switch (input) {
                     case "number":
-                        runRecordMenu(record);
+                        MenuController.runRecordMenu(record);
                         exit();
                     case "back":
                         exit();

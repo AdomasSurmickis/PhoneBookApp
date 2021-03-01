@@ -1,13 +1,11 @@
 package com.adomas.menu.sub;
 
-import contacts.Contact;
-import contacts.PhoneBook;
-import contacts.menu.MenuController;
-import contacts.menu.MenuType;
+import com.adomas.domain.Contact;
+import com.adomas.PhoneBook;
+import com.adomas.menu.MenuController;
+import com.adomas.menu.MenuType;
 
 import java.util.List;
-
-import static contacts.menu.MenuController.*;
 
 public class SearchMenu extends Menu {
     List<Contact> foundContacts;
@@ -28,7 +26,7 @@ public class SearchMenu extends Menu {
 
     public void main() {
         System.out.print("Enter search query: ");
-        foundContacts =phoneBook.searchContacts(sc.nextLine());
+        foundContacts = MenuController.phoneBook.searchContacts(MenuController.sc.nextLine());
         if (foundContacts.size() > 0) {
             System.out.println("Found " + foundContacts.size() + " results:");
             PhoneBook.printList(foundContacts);
@@ -40,7 +38,7 @@ public class SearchMenu extends Menu {
     public void secondary() {
         System.out.println();
         printMenu();
-        String input = sc.nextLine();
+        String input = MenuController.sc.nextLine();
         Contact record = PhoneBook.getContactByInputIndex(input);
 
         if (record != null) {
@@ -54,7 +52,7 @@ public class SearchMenu extends Menu {
                 break;
             case "number":
                 foundRecord = record;
-                runRecordMenu(record);
+                MenuController.runRecordMenu(record);
                 exit();
         }
 

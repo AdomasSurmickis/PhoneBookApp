@@ -1,7 +1,7 @@
 package com.adomas.repository;
 
-import contacts.Contact;
-import contacts.service.list.AbstractListService;
+import com.adomas.domain.Contact;
+import com.adomas.service.list.AbstractListService;
 
 import java.util.List;
 

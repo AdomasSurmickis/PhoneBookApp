@@ -1,9 +1,12 @@
-package com.adomas;
+package com.adomas.domain;
+
+import lombok.Data;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+@Data
 public class Person extends Contact  {
     private String name;
     private String surname;
@@ -16,21 +19,7 @@ public class Person extends Contact  {
     }
 
 
-    public String getSurname() {
-        return surname;
-    }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
 
     @Override
     public String getAllFieldsAsString() {
@@ -56,9 +45,6 @@ public class Person extends Contact  {
         }
     }
 
-    public String getGender() {
-        return gender;
-    }
 
     public void setGender(String gender) {
         if (gender.equals("M") || gender.equals("F")) {

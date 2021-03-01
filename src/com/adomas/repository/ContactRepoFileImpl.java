@@ -1,11 +1,14 @@
 package com.adomas.repository;
 
-import contacts.Contact;
-import contacts.PhoneBook;
+
+import com.adomas.domain.Contact;
+import com.adomas.PhoneBook;
 
 import java.io.*;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +18,7 @@ public class ContactRepoFileImpl implements ContactRepository {
     private PhoneBook phoneBook;
 
     public ContactRepoFileImpl(String pathStr, PhoneBook phoneBook) {
-        Path p = Path.of(pathStr);
+        Path p = Paths.get(pathStr);
         if (Files.exists(p)) {
             this.path = p;
         } else {

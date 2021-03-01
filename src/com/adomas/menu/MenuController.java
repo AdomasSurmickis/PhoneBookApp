@@ -1,15 +1,14 @@
 package com.adomas.menu;
 
-import contacts.Contact;
-import contacts.PhoneBook;
-import contacts.menu.sub.MenuFactory;
-import contacts.menu.sub.RecordMenu;
-import contacts.service.ContactServiceImpl;
-import contacts.service.PhoneBookService;
+import com.adomas.domain.Contact;
+import com.adomas.PhoneBook;
+import com.adomas.menu.sub.RecordMenu;
+import com.adomas.service.ContactServiceImpl;
+import com.adomas.service.PhoneBookService;
 
 import java.util.Scanner;
 
-public class MenuController {
+public class MenuController extends Thread {
     public static Scanner sc;
     public static ContactServiceImpl contactService;
     public static PhoneBookService phoneBookService;

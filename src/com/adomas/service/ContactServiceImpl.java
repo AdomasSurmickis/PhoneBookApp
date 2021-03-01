@@ -1,15 +1,14 @@
 package com.adomas.service;
 
-import contacts.Contact;
-import contacts.Organization;
-import contacts.Person;
-import contacts.PhoneBook;
-import contacts.repository.ContactRepoListImpl;
-import contacts.repository.ContactRepository;
+import com.adomas.domain.Contact;
+import com.adomas.domain.Organization;
+import com.adomas.domain.Person;
+import com.adomas.PhoneBook;
+import com.adomas.menu.MenuController;
+import com.adomas.repository.ContactRepoListImpl;
+import com.adomas.repository.ContactRepository;
 
 import java.lang.reflect.Field;
-
-import static contacts.menu.MenuController.sc;
 
 public class ContactServiceImpl {
 
@@ -21,9 +20,9 @@ public class ContactServiceImpl {
 
 
 
-    public Contact createContact() {
+    public Contact  createContact() {
         System.out.print("Enter the type (person, organization): ");
-        String type = sc.nextLine();
+        String type = MenuController.sc.nextLine();
         Contact contact = null;
         switch (type) {
             case "person":
@@ -38,7 +37,7 @@ public class ContactServiceImpl {
         }
 
         for (Field f : contact.getEditableFields()) {
-            contact.updateContactField(sc, f.getName());
+            contact.updateContactField(MenuController.sc, f.getName());
         }
 
         return contact;
@@ -46,7 +45,7 @@ public class ContactServiceImpl {
 
     public void editContact(Contact c) {
         c.printEditableOptions();
-        if (c.updateContactField(sc, sc.nextLine())) {
+        if (c.updateContactField(MenuController.sc, MenuController.sc.nextLine())) {
             System.out.println("Saved");
             repository.save(c);
             System.out.println(c);

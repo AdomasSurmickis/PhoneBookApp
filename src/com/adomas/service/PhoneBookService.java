@@ -1,12 +1,14 @@
 package com.adomas.service;
 
-import contacts.Contact;
-import contacts.PhoneBook;
+import com.adomas.domain.Contact;
+import com.adomas.PhoneBook;
 
 import java.util.List;
 import java.util.Scanner;
 
-import static contacts.menu.MenuController.*;
+import static com.adomas.menu.MenuController.contactService;
+import static com.adomas.menu.MenuController.sc;
+
 
 public class PhoneBookService {
 
