@@ -3,6 +3,7 @@ package com.adomas;
 import com.adomas.domain.Contact;
 import com.adomas.domain.Organization;
 import com.adomas.domain.Person;
+import com.adomas.menu.sub.Menu;
 import com.adomas.repository.ContactRepoFileImpl;
 import com.adomas.repository.ContactRepoListImpl;
 import com.adomas.repository.ContactRepository;
@@ -43,6 +44,12 @@ public class PhoneBook {
         }
     }
 
+    public void printPhoneBookContacts() {
+        for (int i = 0; i < contacts.size(); i++) {
+            System.out.println(1 + i + ". " + contacts.get(i).getFullName());
+        }
+    }
+
     public static void printList(List<Contact> list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(1 + i + ". " + list.get(i).getFullName());
@@ -78,7 +85,8 @@ public class PhoneBook {
     }
 
 
-    public List<Contact> searchContacts(String nextLine) {
+    public List<Contact> searchContacts() {
+        String nextLine = sc.nextLine();
         Pattern p = Pattern.compile(".*(" + nextLine + ").*", Pattern.CASE_INSENSITIVE);
 
         return contacts.stream()
@@ -123,6 +131,16 @@ public class PhoneBook {
             System.out.println();
         }
     }
+
+    public void list(Menu menu, PhoneBook phoneBook) {
+        phoneBook.printPhoneBookContacts();
+        System.out.println(menu);
+
+        menu.executeCommand(sc.nextLine());
+    }
+
+
+
 }
 
 

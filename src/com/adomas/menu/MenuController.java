@@ -8,7 +8,7 @@ import com.adomas.service.PhoneBookService;
 
 import java.util.Scanner;
 
-public class MenuController extends Thread {
+public class MenuController  {
     public static Scanner sc;
     public static ContactServiceImpl contactService;
     public static PhoneBookService phoneBookService;
@@ -19,14 +19,14 @@ public class MenuController extends Thread {
     public MenuController() {
         sc = new Scanner(System.in);
         contactService = new ContactServiceImpl();
-        menuFactory = MenuFactory.getInstance();
+//        menuFactory = MenuFactory.getInstance();
         phoneBook = new PhoneBook();
     }
 
 
     public MenuController(String filePath) {
         sc = new Scanner(System.in);
-        menuFactory = MenuFactory.getInstance();
+//        menuFactory = MenuFactory.getInstance();
         phoneBook = new PhoneBook(filePath);
         contactService = new ContactServiceImpl();
 
@@ -34,7 +34,6 @@ public class MenuController extends Thread {
     }
 
     public void loopMenus() {
-
         while (!exitApp) {
             System.out.print("[menu] Enter action (add, list, search, count, exit): ");
             String selection = sc.nextLine();
@@ -44,10 +43,10 @@ public class MenuController extends Thread {
                     phoneBook.createContact();
                     break;
                 case "list":
-                    menuFactory.createOrGetMenu(MenuType.LIST).enterToMenu();
+                    menuFactory.createOrGetMenu(MenuType.LIST, phoneBook).executeCommand("asd");
                     break;
                 case "search":
-                    menuFactory.createOrGetMenu(MenuType.SEARCH).enterToMenu();
+                    menuFactory.createOrGetMenu(MenuType.SEARCH, phoneBook).enterToMenu();
                 case "count":
                     phoneBook.printContactCount();
                     break;
@@ -63,13 +62,10 @@ public class MenuController extends Thread {
 
     }
 
-    public static void exitProgram() {
-        exitApp = true;
-    }
 
 
     public static void runRecordMenu(Contact contact) {
-        ((RecordMenu) menuFactory.createOrGetMenu(MenuType.RECORD)).run(contact);
+        ((RecordMenu) menuFactory.createOrGetMenu(MenuType.RECORD, phoneBook)).run(contact);
     }
 
 
