@@ -1,6 +1,6 @@
-package com.adomas.phoneBookCommands;
+package com.adomas.command;
 
-import com.adomas.PhoneBook;
+import com.adomas.domain.PhoneBook;
 
 public class CountCommand implements Command {
 

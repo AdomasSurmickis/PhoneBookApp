@@ -1,9 +1,11 @@
-package com.adomas;
+package com.adomas.domain;
 
-import com.adomas.domain.Contact;
-import com.adomas.domain.Organization;
-import com.adomas.domain.Person;
-import com.adomas.menu.sub.Menu;
+import com.adomas.menu.MenuFactory;
+import com.adomas.menu.MenuType;
+import com.adomas.menu.Menu;
+import com.adomas.command.EditCommand;
+import com.adomas.command.InfoCommand;
+import com.adomas.command.RemoveCommand;
 import com.adomas.repository.ContactRepoFileImpl;
 import com.adomas.repository.ContactRepoListImpl;
 import com.adomas.repository.ContactRepository;
@@ -14,7 +16,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static com.adomas.menu.MenuController.sc;
+import static com.adomas.Application.*;
 
 public class PhoneBook {
     public static List<Contact> contacts;
@@ -67,10 +69,15 @@ public class PhoneBook {
 
     }
 
-    public Contact getContactByInputIndexThrows(String input) throws NumberFormatException {
+    public Contact getContactByInputIndexThrows(String input) {
         int parsedInt = 0;
-        parsedInt = Integer.parseInt(input) - 1;
-        return contacts.get(parsedInt);
+        try {
+            parsedInt = Integer.parseInt(input) - 1;
+            return contacts.get(parsedInt);
+        } catch (NumberFormatException e) {
+
+        }
+        return null;
     }
 
 
@@ -85,13 +92,36 @@ public class PhoneBook {
     }
 
 
+    public void enterSearchMenu() {
+        searchContacts();
+        Menu searchMenu = MenuFactory.createOrGetMenu(MenuType.SEARCH, this);
+        while (!searchMenu.isToExit()) {
+            System.out.print(searchMenu);
+
+            String input = sc.nextLine();
+            if (!executeInfoCommandIfNumber(searchMenu, input)) {
+                searchMenu.executeCommand(input);
+            }
+        }
+    }
+
+
     public List<Contact> searchContacts() {
+        System.out.print("Enter query to search: ");
         String nextLine = sc.nextLine();
         Pattern p = Pattern.compile(".*(" + nextLine + ").*", Pattern.CASE_INSENSITIVE);
 
-        return contacts.stream()
+        List<Contact> foundContacts = contacts.stream()
                 .filter(contact -> p.matcher(contact.getAllFieldsAsString()).matches())
                 .collect(Collectors.toList());
+
+        if (foundContacts.size() > 0) {
+            System.out.println("Found " + foundContacts.size() + " results:");
+            PhoneBook.printList(foundContacts);
+        } else {
+            System.out.println("No results has been found");
+        }
+        return contacts;
     }
 
 
@@ -132,15 +162,59 @@ public class PhoneBook {
         }
     }
 
-    public void list(Menu menu, PhoneBook phoneBook) {
-        phoneBook.printPhoneBookContacts();
-        System.out.println(menu);
+    public void list(PhoneBook phoneBook) {
+        Menu listMenu = MenuFactory.createOrGetMenu(MenuType.LIST, this);
+        if (contacts.size() > 0) {
+            phoneBook.printPhoneBookContacts();
+            System.out.print(listMenu);
 
-        menu.executeCommand(sc.nextLine());
+            String command = sc.nextLine();
+            executeInfoCommandIfNumber(listMenu, command);
+
+        } else {
+            System.out.println("Phone book is empty");
+        }
+    }
+
+    public boolean executeInfoCommandIfNumber(Menu menu, String input) {
+        if (input.matches("\\d+")) {
+            menu.setCommand("[number]", new InfoCommand(this, input));
+            menu.executeCommand("[number]");
+            return true;
+        }
+
+        return false;
     }
 
 
+    public void retrieveAndEditContact(String contactIndex) {
+        Menu recordMenu = MenuFactory.createOrGetMenu(MenuType.RECORD, this);
+        Contact contact = getContactByInputIndex(contactIndex);
 
+        if (contact != null) {
+            while (!recordMenu.isToExit()) {
+                System.out.print(recordMenu);
+                String inputCommand = sc.nextLine().toLowerCase();
+                switch (inputCommand) {
+                    case "edit":
+                        recordMenu.setCommand(inputCommand, new EditCommand(this, contact));
+                        recordMenu.executeCommand(inputCommand);
+                        break;
+                    case "delete":
+                        recordMenu.setCommand(inputCommand, new RemoveCommand(this, contact));
+                        recordMenu.executeCommand(inputCommand);
+                        recordMenu.exit();
+                        break;
+                    case "menu":
+                        recordMenu.executeCommand(inputCommand);
+                        MenuFactory.createOrGetMenu(MenuType.SEARCH, this).exit();
+                }
+            }
+        } else {
+            System.out.println("Contact with index " + contactIndex + "  not found");
+        }
+
+    }
 }
 
 

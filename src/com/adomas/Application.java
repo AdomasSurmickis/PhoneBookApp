@@ -1,21 +1,15 @@
 package com.adomas;
 
-import com.adomas.domain.Contact;
+import com.adomas.domain.PhoneBook;
 import com.adomas.menu.MenuFactory;
 import com.adomas.menu.MenuType;
-import com.adomas.menu.sub.Menu;
-import com.adomas.menu.sub.RecordMenu;
-import com.adomas.service.ContactServiceImpl;
-import com.adomas.service.PhoneBookService;
+import com.adomas.menu.Menu;
 
 import java.util.Scanner;
 
-public class Main {
+public class Application {
 
-    public static Scanner sc;
-    public static ContactServiceImpl contactService;
-    public static PhoneBookService phoneBookService;
-    private static MenuFactory menuFactory;
+    public static Scanner sc = new Scanner(System.in);
     public static PhoneBook phoneBook;
     public static boolean exitApp = false;
 
@@ -31,9 +25,9 @@ public class Main {
 //        menuController.loopMenus();
 
         Menu mainMenu = MenuFactory.createOrGetMenu(MenuType.MAIN, phoneBook);
-        while (!exitApp) {
+        while (!mainMenu.isToExit()) {
 
-            System.out.println(mainMenu);
+            System.out.print(mainMenu);
             mainMenu.executeCommand(sc.nextLine()); // exec next user command, if not repeat
 
 
@@ -46,8 +40,5 @@ public class Main {
         exitApp = true;
     }
 
-    public static void runRecordMenu(Contact contact) {
-        ((RecordMenu) menuFactory.createOrGetMenu(MenuType.RECORD, phoneBook)).run(contact);
-    }
 
 }

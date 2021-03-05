@@ -2,7 +2,7 @@ package com.adomas.repository;
 
 
 import com.adomas.domain.Contact;
-import com.adomas.PhoneBook;
+import com.adomas.domain.PhoneBook;
 
 import java.io.*;
 

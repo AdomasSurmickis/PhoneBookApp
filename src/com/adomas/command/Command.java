@@ -1,4 +1,4 @@
-package com.adomas.phoneBookCommands;
+package com.adomas.command;
 
 public interface Command {
 

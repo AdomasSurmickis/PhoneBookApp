@@ -125,7 +125,7 @@ public abstract class Contact implements Serializable {
                     System.out.println("Bad gender!");
                     return false;
                 }
-            case "number":
+            case "[number]":
                 System.out.print("Enter the number: ");
                 String number = sc.nextLine();
                 if (Util.isPhoneValid(number)) {

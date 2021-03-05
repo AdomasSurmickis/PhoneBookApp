@@ -1,7 +1,6 @@
-package com.adomas.menu;
+package com.adomas.command;
 
-import com.adomas.PhoneBook;
-import com.adomas.phoneBookCommands.Command;
+import com.adomas.domain.PhoneBook;
 
 public class SearchCommand implements Command {
     private PhoneBook phoneBook;
@@ -12,6 +11,6 @@ public class SearchCommand implements Command {
 
     @Override
     public void execute() {
-        phoneBook.searchContacts();
+        phoneBook.enterSearchMenu();
     }
 }

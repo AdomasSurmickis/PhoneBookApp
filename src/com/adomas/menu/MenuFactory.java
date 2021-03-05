@@ -1,21 +1,13 @@
 package com.adomas.menu;
 
-import com.adomas.PhoneBook;
-import com.adomas.menu.sub.ListMenu;
-import com.adomas.menu.sub.Menu;
-import com.adomas.menu.sub.RecordMenu;
-import com.adomas.menu.sub.SearchMenu;
-import com.adomas.phoneBookCommands.CountCommand;
-import com.adomas.phoneBookCommands.ExitMenuCommand;
-import com.adomas.phoneBookCommands.ListCommand;
-import com.adomas.phoneBookCommands.commands.main.CreateContactCommand;
+import com.adomas.domain.PhoneBook;
+import com.adomas.command.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MenuFactory {
     private static List<Menu> menus = new ArrayList<>();
-    private static MenuFactory factory;
 
     private MenuFactory() {
     }
@@ -25,27 +17,37 @@ public class MenuFactory {
         Menu newMenu = null;
         for (Menu menu : menus) {
             if (menu.getMenuType().equals(type)) {
+                menu.setToExit(false);
                 return menu;
             }
         }
         switch (type) {
             case MAIN:
                 newMenu = new Menu(MenuType.MAIN);
-                newMenu.addCommand("add", new CreateContactCommand(phoneBook))
-                        .addCommand("list", new ListCommand(newMenu, phoneBook))
+                newMenu.addCommand("add", new AddCommand(phoneBook))
+                        .addCommand("list", new ListCommand(phoneBook))
                         .addCommand("search", new SearchCommand(phoneBook))
                         .addCommand("count", new CountCommand(phoneBook))
                         .addCommand("exit", new ExitMenuCommand(newMenu));
                 break;
             case RECORD:
-                newMenu = new RecordMenu(MenuType.RECORD);
+                newMenu = new Menu(MenuType.RECORD);
+                newMenu.addCommand("edit", null)
+                        .addCommand("delete", null)
+                        .addCommand("menu", new ExitMenuCommand(newMenu));
+
                 break;
             case SEARCH:
-                newMenu = new SearchMenu(MenuType.SEARCH);
+                newMenu = new Menu(MenuType.SEARCH);
+                newMenu.addCommand("[number]", null)
+                        .addCommand("again", new SearchCommand(phoneBook))
+                        .addCommand("back", new ExitMenuCommand(newMenu));
                 break;
             case LIST:
-                newMenu = new ListMenu(MenuType.LIST);
-                newMenu.addCommand();
+                newMenu = new Menu(MenuType.LIST);
+                newMenu.addCommand("[number]", null);
+                newMenu.addCommand("back", new ExitMenuCommand(newMenu));
+                break;
         }
         menus.add(newMenu);
         return newMenu;

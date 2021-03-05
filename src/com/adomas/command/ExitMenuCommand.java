@@ -1,6 +1,6 @@
-package com.adomas.phoneBookCommands;
+package com.adomas.command;
 
-import com.adomas.menu.sub.Menu;
+import com.adomas.menu.Menu;
 
 public class ExitMenuCommand implements Command {
     private Menu menuToExit;

@@ -1,7 +1,6 @@
-package com.adomas.menu.sub;
+package com.adomas.menu;
 
-import com.adomas.menu.MenuType;
-import com.adomas.phoneBookCommands.Command;
+import com.adomas.command.Command;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -10,7 +9,11 @@ import java.util.LinkedHashMap;
 @Data
 public class Menu {
 
-    protected boolean toExit = false;
+    public void setToExit(boolean toExit) {
+        this.toExit = toExit;
+    }
+
+    private boolean toExit = false;
 
     protected final MenuType menuType;
     private HashMap<String, Command> menuItems;
@@ -35,7 +38,7 @@ public class Menu {
         if (this.menuItems.containsKey(name)) {
             this.menuItems.get(name).execute();
         } else {
-            System.out.println("Command not found!\n");
+            System.out.println("Command not found!");
         }
     }
 
@@ -46,7 +49,7 @@ public class Menu {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("[");
+        StringBuilder sb = new StringBuilder("\n[");
         sb.append(this.menuType.getName()).append("]").append(" Enter action(");
         for (String key : menuItems.keySet()) {
             sb.append(key).append(", ");
